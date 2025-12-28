@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EARLY LIFE CRISIS - NettHub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .noise-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, transparent 1px, transparent 2px, rgba(255,255,255,0.03) 3px),
+                repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0px, transparent 1px, transparent 2px, rgba(255,255,255,0.03) 3px);
+            pointer-events: none;
+            z-index: 1;
+            animation: flicker 3s infinite;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            border-bottom: 2px solid #fff;
+            margin-bottom: 40px;
+        }
+
+        .site-title {
+            font-size: 1.2em;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-transform: lowercase;
+        }
+
+        h1 {
+            font-size: 4em;
+            font-weight: 900;
+            text-transform: lowercase;
+            letter-spacing: -2px;
+            margin-bottom: 15px;
+            line-height: 0.9;
+            animation: glitch 5s infinite;
+        }
+
+        .crisis-repeat {
+            font-size: 1.5em;
+            line-height: 1.4;
+            margin: 20px 0;
+            text-transform: lowercase;
+            font-weight: bold;
+        }
+
+        .discord-link {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 15px 40px;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            text-transform: lowercase;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.2s;
+            border: 3px solid #fff;
+        }
+
+        .discord-link:hover {
+            background: #000;
+            color: #fff;
+        }
+
+        .player-wrapper {
+            background: #fff;
+            color: #000;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 3px solid #000;
+        }
+
+        .now-playing {
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            opacity: 0.7;
+        }
+
+        .track-title {
+            font-size: 2.5em;
+            font-weight: 900;
+            margin-bottom: 25px;
+            text-transform: lowercase;
+        }
+
+        audio {
+            width: 100%;
+            margin: 25px 0;
+            height: 50px;
+        }
+
+        .player-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .control-btn {
+            padding: 15px 30px;
+            background: #000;
+            color: #fff;
+            border: 3px solid #000;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            text-transform: lowercase;
+            transition: all 0.2s;
+        }
+
+        .control-btn:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        .control-btn.active {
+            background: #fff;
+            color: #000;
+        }
+
+        .tracklist-header {
+            font-size: 2em;
+            font-weight: 900;
+            margin-bottom: 25px;
+            text-transform: lowercase;
+            border-bottom: 2px solid #fff;
+            padding-bottom: 15px;
+        }
+
+        .song-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2px;
+            background: #fff;
+            border: 3px solid #fff;
+        }
+
+        .song-card {
+            background: #000;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .song-card:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        .song-card.playing {
+            background: #fff;
+            color: #000;
+        }
+
+        .song-num {
+            font-size: 0.8em;
+            opacity: 0.7;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .song-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            text-transform: lowercase;
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            border-top: 2px solid #fff;
+            margin-top: 60px;
+            font-size: 0.9em;
+            text-transform: lowercase;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5em; }
+            .track-title { font-size: 1.8em; }
+            .song-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="noise-bg"></div>
+    
+    <div class="container">
+        <header>
+            <div class="site-title">nettspend</div>
+            <h1>NettHub</h1>
+            <a href="https://discord.gg/J3YSukmWEQ" target="_blank" class="discord-link">join discord</a>
+        </header>
+
+        <div class="player-wrapper">
+            <div class="now-playing">now playing</div>
+            <div class="track-title" id="trackTitle">select a track</div>
+            <audio id="player" controls></audio>
+            <div class="player-controls">
+                <button class="control-btn" onclick="prevTrack()">← prev</button>
+                <button class="control-btn" onclick="nextTrack()">next →</button>
+                <button class="control-btn" id="shuffleBtn" onclick="toggleShuffle()">shuffle off</button>
+            </div>
+        </div>
+
+        <div class="tracklist-header">all tracks.</div>
+        <div class="song-grid" id="trackList"></div>
+
+        <footer>
+            nettspend © 2025<br>
+            music archive.
+        </footer>
+    </div>
+
+    <script>
+        const tracks = [
+            { title: "beamerrr", url: "https://raw.githubusercontent.com/vexascripts/nettspend/main/Beamerrr.mp3" },
+            { title: "cryptonite", url: "https://raw.githubusercontent.com/vexascripts/nettspend/main/Cryptonite%20%5B6Q_8XElwBuI%5D.mp3" },
+            { title: "fck swag", url: "https://raw.githubusercontent.com/vexascripts/nettspend/main/FCK%20SWAG.mp3" },
+            { title: "good night", url: "https://raw.githubusercontent.com/vexascripts/nettspend/main/GoOd%20Night.mp3" },
+            { title: "growing up", url: "https://raw.githubusercontent.com/vexascripts/nettspend/main/Growing%20Up.mp3" },
+            { title: "hollywood", url: "https://raw.githubusercontent.com/vexascripts/nettspend/main/Hollywood.mp3" },
+            { title: "laughin", url: "https://raw.githubusercontent.com/vexascripts/nettspend/main/LAUGHIN.mp3" },
+            { title: "a$ap", url: "https://raw.githubusercontent.com/vexascripts/nettspend/main/Nettspend%20-%20A%24AP%20(Official%20Audio).mp3" },
+            { title: "birdbox", url: "https://raw.githubusercontent.com/vexascripts/nettspend/main/Nettspend%20-%20Birdbox%20(Official%20Audio).mp3" },
+            { title: "drop the blunt", url: "https://raw.githubusercontent.com/vexascripts/nettspend/main/Nettspend%20-%20Drop%20The%20Blunt%20(Official%20Audio).mp3" },
+            { title: "fck cancer", url: "https://raw.githubusercontent.com/vexascripts/nettspend/main/Nettspend%20-%20FCK%20CANCER%20(Official%20Audio).mp3" },
+            { title: "gen 5", url: "https://raw.githubusercontent.com/vexascripts/nettspend/main/Nettspend%20-%20Gen%205%20(Official%20Music%20Video).mp3" },
+            { title: "project pat", url: "https://raw.githubusercontent.com/vexascripts/nettspend/main/Nettspend%20-%20Project%20Pat%20(Official%20Audio).mp3" },
+            { title: "say please", url: "https://raw.githubusercontent.com/vexascripts/nettspend/main/Nettspend%20-%20Say%20Please%20(Official%20Audio).mp3" },
+            { title: "shut up", url: "https://raw.githubusercontent.com/vexascripts/nettspend/main/Nettspend%20-%20Shut%20Up%20%5BOfficial%20Video%5D.mp3" },
+            { title: "skipping class", url: "https://raw.githubusercontent.com/vexascripts/nettspend/main/Nettspend%20-%20Skipping%20Class%20(Official%20Audio).mp3" },
+            { title: "that one song", url: "https://raw.githubusercontent.com/vexascripts/nettspend/main/Nettspend%20-%20That%20One%20Song%20(Official%20Music%20Video).mp3" },
+            { title: "tommy", url: "https://raw.githubusercontent.com/vexascripts/nettspend/main/Nettspend%20-%20Tommy%20(Music%20Video).mp3" },
+            { title: "tyla", url: "https://raw.githubusercontent.com/vexascripts/nettspend/main/Nettspend%20-%20Tyla%20(Official%20Audio).mp3" },
+            { title: "impact (feat. xaviersobased)", url: "https://raw.githubusercontent.com/vexascripts/nettspend/main/Nettspend%20-%20impact%20(feat.%20xaviersobased)%20%5Bofficial%20video%5D.mp3" },
+            { title: "on me (feat. yhapojj)", url: "https://raw.githubusercontent.com/vexascripts/nettspend/main/On%20Me%20(feat.%20yhapojj).mp3" },
+            { title: "section", url: "https://raw.githubusercontent.com/vexascripts/nettspend/main/Section.mp3" },
+            { title: "u told us quit", url: "https://raw.githubusercontent.com/vexascripts/nettspend/main/U%20Told%20Us%20Quit%20%5Bj9k8DNCaQCE%5D.mp3" },
+            { title: "what they say", url: "https://raw.githubusercontent.com/vexascripts/nettspend/main/What%20they%20say.mp3" },
+            { title: "u gon fall", url: "https://raw.githubusercontent.com/vexascripts/nettspend/main/nettspend%20-%20U%20GON%20FALL%20(shot%20by%20%406ixvcr%20).mp3" },
+            { title: "where the racks at", url: "https://raw.githubusercontent.com/vexascripts/nettspend/main/where%20the%20racks%20at%20%5BVcw6tCyC228%5D.mp3" }
+        ];
+
+        let currentIdx = 0;
+        let shuffleMode = false;
+        const player = document.getElementById('player');
+        const trackTitle = document.getElementById('trackTitle');
+        const trackList = document.getElementById('trackList');
+        const shuffleBtn = document.getElementById('shuffleBtn');
+
+        // initialize player with first track and enable autoplay
+        if (tracks.length > 0) {
+            player.preload = 'metadata';
+            player.autoplay = true;
+            player.src = tracks[0].url;
+            trackTitle.textContent = tracks[0].title;
+        }
+
+        function renderTracks() {
+            trackList.innerHTML = '';
+            tracks.forEach((track, idx) => {
+                const card = document.createElement('div');
+                card.className = 'song-card';
+                if (idx === currentIdx) card.classList.add('playing');
+                card.innerHTML = `
+                    <div class="song-num">track ${String(idx + 1).padStart(2, '0')}</div>
+                    <div class="song-name">${track.title}</div>
+                `;
+                card.onclick = () => playTrack(idx);
+                trackList.appendChild(card);
+            });
+        }
+
+        function playTrack(idx) {
+            currentIdx = idx;
+            player.src = tracks[idx].url;
+            trackTitle.textContent = tracks[idx].title;
+            player.play();
+            renderTracks();
+        }
+
+        function nextTrack() {
+            if (shuffleMode) {
+                currentIdx = Math.floor(Math.random() * tracks.length);
+            } else {
+                currentIdx = (currentIdx + 1) % tracks.length;
+            }
+            playTrack(currentIdx);
+        }
+
+        function prevTrack() {
+            currentIdx = (currentIdx - 1 + tracks.length) % tracks.length;
+            playTrack(currentIdx);
+        }
+
+        function toggleShuffle() {
+            shuffleMode = !shuffleMode;
+            shuffleBtn.textContent = shuffleMode ? 'shuffle on' : 'shuffle off';
+            shuffleBtn.classList.toggle('active', shuffleMode);
+        }
+
+        player.addEventListener('ended', nextTrack);
+
+        renderTracks();
+    </script>
+</body>
+</html>
